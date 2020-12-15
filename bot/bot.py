@@ -24,27 +24,27 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
-    eq = open('eq', 'r')
+    eq = open('./eq', 'r')
     eqLines = eq.readlines()
     eqDat = []
     for line in eqLines:
         eqDat.append(line.strip().split("±"))
-    sw = open('sw', 'r')
+    sw = open('./sw', 'r')
     swLines = sw.readlines()
     swDat = []
     for line in swLines:
         swDat.append(line.strip().split("±"))
-    ew = open('ew', 'r')
+    ew = open('./ew', 'r')
     ewLines = ew.readlines()
     ewDat = []
     for line in ewLines:
         ewDat.append(line.strip().split("±"))
-    ct = open('ct', 'r')
+    ct = open('./ct', 'r')
     ctLines = ct.readlines()
     ctDat = []
     for line in ctLines:
         ctDat.append(line.strip().split("±"))
-    j = open('joke', 'r')
+    j = open('./joke', 'r')
     jLines = j.readlines()
     jDat = []
     for line in jLines:
