@@ -3,6 +3,7 @@ import random as rd
 import discord
 from discord.ext.commands import Bot
 from datetime import datetime
+from dateutil.tz import tzlocal
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = Bot("^")
@@ -82,7 +83,7 @@ async def genkey(ctx):
 async def onMessage(message):
     dt = datetime.now()
     f = open("new.log", "a")
-    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " " + datetime.now(tzlocal()).tzname() + "] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content + "\n")
     f.close()
     print(str(message.guild) + " #" + str(message.channel) + " - " + str(
