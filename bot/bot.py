@@ -77,8 +77,8 @@ async def genkey(ctx):
     await ctx.send("Key has successfully been sent")
 
 
-@client.event
-async def on_message(message):
+@client.listen('on_message')
+async def onMessage(message):
     f = open("new.log", "a")
     f.write("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content + "\n")
@@ -134,7 +134,6 @@ async def on_message(message):
         for item in data[0].split("·"):
             if message.content.lower().__contains__(item):
                 await message.channel.send(rd.choice(data[1].split("·")))
-    await client.process_commands(message)
 
 
 client.run(TOKEN)
