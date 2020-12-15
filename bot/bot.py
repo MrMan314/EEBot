@@ -29,7 +29,7 @@ async def on_member_join(member):
 async def ctime(ctx):
     dt = datetime.now()
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
-                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f"))
+                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + datetime.now(tzlocal()).tzname())
 
 
 @client.command()
