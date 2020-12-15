@@ -1,10 +1,10 @@
 import os
 import random as rd
 import discord
-from discord.ext import commands
+from discord.ext.commands import Bot
 
 TOKEN = os.getenv('DISCORD_TOKEN')
-client = commands.Bot(command_prefix="^")
+client = Bot("^")
 os.chdir("bot")
 num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 ltr = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -23,14 +23,14 @@ async def on_member_join(member):
     )
 
 
-@client.command
+@client.command()
 async def ctime(ctx):
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
                               "BING BONG BING BONG who's your friend who likes to play?  "]) + str(
         ctx.created_at) + " GMT")
 
 
-@client.command
+@client.command()
 async def joke(ctx):
     j = open('./joke', 'r')
     jLines = j.readlines()
@@ -45,7 +45,7 @@ async def joke(ctx):
         pass
 
 
-@client.command
+@client.command()
 async def genkey(ctx):
     await ctx.author.create_dm()
     key = str('Key: ||`' +
@@ -110,7 +110,7 @@ async def on_message(message):
         return
     elif worm_spellings.__contains__(message.content.lower().split(" ")[0]):
         try:
-            if (int(message.content.lower().split(" ")[1]) <= 1000):
+            if int(message.content.lower().split(" ")[1]) <= 1000:
                 await message.channel.send("<:wormhead:787786964295614495>" + (
                             "<:wormbody:787786942312874006>" * rd.randint(0, int(
                         message.content.lower().split(" ")[1]))) + "<:wormtail:787786975703728208>")
@@ -134,6 +134,7 @@ async def on_message(message):
         for item in data[0].split("·"):
             if message.content.lower().__contains__(item):
                 await message.channel.send(rd.choice(data[1].split("·")))
+    await client.process_commands(message)
 
 
 client.run(TOKEN)
