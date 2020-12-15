@@ -24,7 +24,7 @@ async def on_member_join(member):
     )
 
 
-@client.command()
+@client.command
 async def ping(ctx):
     await ctx.send(f"🏓 Pong with {str(round(client.latency, 2))}")
 
