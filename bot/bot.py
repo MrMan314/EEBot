@@ -28,10 +28,10 @@ async def on_member_join(member):
 
 @client.event
 async def on_command_error(ctx, error):
-    print(error)
     if isinstance(error, CommandNotFound):
-        await ctx.send("Error—\n CommandNotFound")
+        await ctx.send("Error: " + error)
         return
+    await ctx.send("Error: " + error)
     raise error
 
 
