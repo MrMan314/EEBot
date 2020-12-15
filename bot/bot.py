@@ -3,6 +3,7 @@ import random as rd
 import discord
 import pytz
 from discord.ext.commands import Bot
+from discord.ext.commands import CommandNotFound
 from datetime import datetime
 
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -23,6 +24,15 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welcome to my Discord server!'
     )
+
+
+@client.event
+async def on_command_error(ctx, error):
+    print(error)
+    if isinstance(error, CommandNotFound):
+        await ctx.send("Error—\n CommandNotFound")
+        return
+    raise error
 
 
 @client.command()
