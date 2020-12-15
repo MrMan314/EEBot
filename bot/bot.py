@@ -2,12 +2,14 @@ import os
 import random as rd
 import discord
 from dotenv import load_dotenv
+from discord.ext import commands
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client()
+client = commands.Bot(command_prefix=".")
 os.chdir("bot")
+
 
 @client.event
 async def on_ready():
@@ -20,6 +22,11 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welcome to my Discord server!'
     )
+
+
+@client.command()
+async def ping(ctx):
+    await ctx.send(f"🏓 Pong with {str(round(client.latency, 2))}")
 
 
 @client.event
