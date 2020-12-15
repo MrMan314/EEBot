@@ -2,12 +2,12 @@ import os
 import random as rd
 import discord
 from dotenv import load_dotenv
-os.system("ls")
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
-
+os.chdir("bot")
 
 @client.event
 async def on_ready():
