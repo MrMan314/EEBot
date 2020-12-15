@@ -24,6 +24,12 @@ async def on_member_join(member):
 
 @client.event
 async def on_message(message):
+    f = open("new.log", "a")
+    f.write("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+        message.author) + ": " + message.content + "\n")
+    f.close()
+    print("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+        message.author) + ": " + message.content)
     eq = open('./eq', 'r')
     eqLines = eq.readlines()
     eqDat = []
