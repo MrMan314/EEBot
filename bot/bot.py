@@ -1,9 +1,9 @@
 import os
 import random as rd
 import discord
+import pytz
 from discord.ext.commands import Bot
 from datetime import datetime
-from dateutil.tz import tzlocal
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = Bot("^")
@@ -27,9 +27,9 @@ async def on_member_join(member):
 
 @client.command()
 async def ctime(ctx):
-    dt = datetime.now()
+    dt = datetime.now(pytz.timezone("UTC"))
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
-                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + datetime.now(tzlocal()).tzname())
+                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " UTC")
 
 
 @client.command()
@@ -81,9 +81,9 @@ async def genkey(ctx):
 
 @client.listen('on_message')
 async def onMessage(message):
-    dt = datetime.now()
+    dt = datetime.now(pytz.timezone("UTC"))
     f = open("new.log", "a")
-    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " " + datetime.now(tzlocal()).tzname() + "] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content + "\n")
     f.close()
     print(str(message.guild) + " #" + str(message.channel) + " - " + str(
