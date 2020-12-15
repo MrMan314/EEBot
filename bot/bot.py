@@ -77,20 +77,6 @@ async def genkey(ctx):
     await ctx.send("Key has successfully been sent")
 
 
-@client.command
-async def worm(ctx, wlength):
-    try:
-        if wlength <= 1000:
-            await ctx.send("<:wormhead:787786964295614495>" + (
-                    "<:wormbody:787786942312874006>" * rd.randint(0, int(
-                ctx.lower().split(" ")[1]))) + "<:wormtail:787786975703728208>")
-        else:
-            await ctx.send("Worm too long, died because it couldn't move!")
-    except:
-        await ctx.send("<:wormhead:787786964295614495>" + (
-                "<:wormbody:787786942312874006>" * rd.randint(0, 10)) + "<:wormtail:787786975703728208>")
-
-
 @client.event
 async def on_message(message):
     f = open("new.log", "a")
@@ -119,8 +105,20 @@ async def on_message(message):
     ctDat = []
     for line in ctLines:
         ctDat.append(line.strip().split("±"))
+    worm_spellings = ["worm", "owrm", "rwom", "wrom", "orwm", "rowm", "mowr", "omwr", "wmor", "mwor", "owmr", "womr", "wrmo", "rwmo", "mwro", "wmro", "rmwo", "mrwo", "mrow", "rmow", "omrw", "morw", "romw", "ormw"]
     if message.author == client.user:
         return
+    elif worm_spellings.__contains__(message.content.lower().split(" ")[0]):
+        try:
+            if (int(message.content.lower().split(" ")[1]) <= 1000):
+                await message.channel.send("<:wormhead:787786964295614495>" + (
+                            "<:wormbody:787786942312874006>" * rd.randint(0, int(
+                        message.content.lower().split(" ")[1]))) + "<:wormtail:787786975703728208>")
+            else:
+                await message.channel.send("Worm too long, died because it couldn't move!")
+        except:
+            await message.channel.send("<:wormhead:787786964295614495>" + (
+                        "<:wormbody:787786942312874006>" * rd.randint(0, 10)) + "<:wormtail:787786975703728208>")
     for data in eqDat:
         if data[0].split("·").__contains__(message.content.lower()):
             await message.channel.send(rd.choice(data[1].split("·")))
