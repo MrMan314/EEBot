@@ -93,9 +93,6 @@ async def on_message(message):
             for item in data[0].split("·"):
                 if message.content.lower().__contains__(item):
                     await message.channel.send(rd.choice(data[1].split("·")))
-    except:
-        await message.channel.send("ERROR!  ERROR!  ERROR!  PLEASE CONTACT <@!721001182340055143> FOR ASSISTANCE!!!")
-        print("ERROR!  ERROR!  ERROR!  PLEASE CONTACT <@!721001182340055143> FOR ASSISTANCE!!!")
-
-
+    except Exception as e:
+        await message.channel.send(e)
 client.run(TOKEN)
