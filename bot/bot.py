@@ -80,11 +80,12 @@ async def genkey(ctx):
 
 @client.listen('on_message')
 async def onMessage(message):
+    dt = datetime.now()
     f = open("new.log", "a")
-    f.write("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content + "\n")
     f.close()
-    print("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+    print(str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content)
     eq = open('eq', 'r')
     eqLines = eq.readlines()
