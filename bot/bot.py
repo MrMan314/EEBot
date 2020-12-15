@@ -2,6 +2,7 @@ import os
 import random as rd
 import discord
 from discord.ext.commands import Bot
+from datetime import datetime
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 client = Bot("^")
@@ -25,9 +26,9 @@ async def on_member_join(member):
 
 @client.command()
 async def ctime(ctx):
+    dt = datetime.now()
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
-                              "BING BONG BING BONG who's your friend who likes to play?  "]) + str(
-        ctx.created_at) + " GMT")
+                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f"))
 
 
 @client.command()
