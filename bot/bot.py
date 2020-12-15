@@ -2,7 +2,7 @@ import os
 import random as rd
 import discord
 from dotenv import load_dotenv
-
+os.system("ls")
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
