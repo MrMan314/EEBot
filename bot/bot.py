@@ -1,14 +1,13 @@
 import os
 import random as rd
 import discord
-from dotenv import load_dotenv
 from discord.ext import commands
 
-load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
-client = commands.Bot(command_prefix=".")
+client = commands.Bot(command_prefix="^")
 os.chdir("bot")
+num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+ltr = ['A', 'B', 'C', 'D', 'E', 'F']
 
 
 @client.event
@@ -25,8 +24,71 @@ async def on_member_join(member):
 
 
 @client.command
-async def ping(ctx):
-    await ctx.send(f"🏓 Pong with {str(round(client.latency, 2))}")
+async def ctime(ctx):
+    await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
+                              "BING BONG BING BONG who's your friend who likes to play?  "]) + str(
+        ctx.created_at) + " GMT")
+
+
+@client.command
+async def joke(ctx):
+    j = open('./joke', 'r')
+    jLines = j.readlines()
+    jDat = []
+    for line in jLines:
+        jDat.append(line.strip().split("±"))
+    joke = rd.choice(jDat)
+    await ctx.send(joke[0])
+    try:
+        await ctx.send(joke[1])
+    except discord.errors.HTTPException:
+        pass
+
+
+@client.command
+async def genkey(ctx):
+    await ctx.author.create_dm()
+    key = str('Key: ||`' +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+              '`||')
+    if rd.randint(-1000, 1000) == 0:
+        f = open("winkeys", "a")
+        f.write(key + '\n')
+    await ctx.author.dm_channel.send(key)
+    await ctx.send("Key has successfully been sent")
+
+
+@client.command
+async def worm(ctx, wlength):
+    try:
+        if wlength <= 1000:
+            await ctx.send("<:wormhead:787786964295614495>" + (
+                    "<:wormbody:787786942312874006>" * rd.randint(0, int(
+                ctx.lower().split(" ")[1]))) + "<:wormtail:787786975703728208>")
+        else:
+            await ctx.send("Worm too long, died because it couldn't move!")
+    except:
+        await ctx.send("<:wormhead:787786964295614495>" + (
+                "<:wormbody:787786942312874006>" * rd.randint(0, 10)) + "<:wormtail:787786975703728208>")
 
 
 @client.event
@@ -37,59 +99,28 @@ async def on_message(message):
     f.close()
     print("[" + str(message.created_at) + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
         message.author) + ": " + message.content)
-    eq = open('./eq', 'r')
+    eq = open('eq', 'r')
     eqLines = eq.readlines()
     eqDat = []
     for line in eqLines:
         eqDat.append(line.strip().split("±"))
-    sw = open('./sw', 'r')
+    sw = open('sw', 'r')
     swLines = sw.readlines()
     swDat = []
     for line in swLines:
         swDat.append(line.strip().split("±"))
-    ew = open('./ew', 'r')
+    ew = open('ew', 'r')
     ewLines = ew.readlines()
     ewDat = []
     for line in ewLines:
         ewDat.append(line.strip().split("±"))
-    ct = open('./ct', 'r')
+    ct = open('ct', 'r')
     ctLines = ct.readlines()
     ctDat = []
     for line in ctLines:
         ctDat.append(line.strip().split("±"))
-    j = open('./joke', 'r')
-    jLines = j.readlines()
-    jDat = []
-    for line in jLines:
-        jDat.append(line.strip().split("±"))
-    worm_spellings = ["worm", "owrm", "rwom", "wrom", "orwm", "rowm", "mowr", "omwr", "wmor", "mwor", "owmr", "womr", "wrmo", "rwmo", "mwro", "wmro", "rmwo", "mrwo", "mrow", "rmow", "omrw", "morw", "romw", "ormw"]
     if message.author == client.user:
         return
-    if message.content.lower().startswith("^say"):
-        await message.channel.send(str(message.author) + ": " + message.content[4:2000])
-    elif message.content.lower().startswith("^talk"):
-        await message.channel.send(str(message.author) + ": " + message.content[5:2000], tts=True)
-    elif message.content.lower().startswith("what time is it") or message.content.lower().startswith("^ctime"):
-        await message.channel.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
-                                              "BING BONG BING BONG who's your friend who likes to play?  "]) + str(
-            message.created_at) + " GMT")
-    elif worm_spellings.__contains__(message.content.lower().split(" ")[0]):
-        try:
-            await message.channel.send("<:wormhead:756607485800087583>"+("<:wormbody:756607472436773005>"*rd.randint(0, int(message.content.lower().split(" ")[1])))+"<:wormtail:756607453910663208>")
-        except:
-            await message.channel.send("<:wormhead:756607485800087583>" + ("<:wormbody:756607472436773005>" * rd.randint(0, 10)) + "<:wormtail:756607453910663208>")
-    elif message.content.lower().startswith("^emoji"):
-        try:
-            await message.channel.send(str(message.author) + ": " + message.content[6:2000].replace("«", "<").replace("»", ">"))
-        except:
-            await message.channel.send("Error Sending Emoji")
-    elif ["^joke", "tell me a joke"].__contains__(message.content.lower()):
-        joke = rd.choice(jDat)
-        await message.channel.send(joke[0])
-        try:
-            await message.channel.send(joke[1])
-        except discord.errors.HTTPException:
-            pass
     for data in eqDat:
         if data[0].split("·").__contains__(message.content.lower()):
             await message.channel.send(rd.choice(data[1].split("·")))
@@ -105,4 +136,6 @@ async def on_message(message):
         for item in data[0].split("·"):
             if message.content.lower().__contains__(item):
                 await message.channel.send(rd.choice(data[1].split("·")))
+
+
 client.run(TOKEN)
