@@ -38,8 +38,8 @@ async def on_command_error(ctx, error):
 
 
 @client.command()
-async def ctime(ctx):
-    dt = datetime.now(pytz.timezone("UTC"))
+async def ctime(ctx, tz):
+    dt = datetime.now(pytz.timezone(tz))
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
                               "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " UTC")
 
