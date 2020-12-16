@@ -41,6 +41,14 @@ async def ctime(ctx, tz):
 
 
 @client.command()
+async def worm(ctx, length=10):
+    if length <= 1000:
+        await ctx.send("<:wormhead:787786964295614495>" + ("<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
+    else:
+        await ctx.send("Worm too long, died because it couldn't move!")
+
+
+@client.command()
 async def setprefix(ctx, prefix):
     client.command_prefix = prefix
     await ctx.send(f"Prefix changed to ``{prefix}``")
