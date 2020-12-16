@@ -43,7 +43,7 @@ async def ctime(ctx, tz):
 async def worm(ctx, length=10):
     if length < 0:
         await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE", file=discord.File("blackhole.gif"))
-    elif length <= 1000:
+    elif length <= 64:
         await ctx.send("<:wormhead:787786964295614495>" + ("<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
     else:
         await ctx.send("Worm too long, died because it couldn't move!")
