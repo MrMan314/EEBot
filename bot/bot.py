@@ -41,7 +41,9 @@ async def ctime(ctx, tz):
 
 @client.command()
 async def worm(ctx, length=10):
-    if length <= 1000:
+    if length < 0:
+        await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE", file=discord.File("blackhole.gif"))
+    elif length <= 1000:
         await ctx.send("<:wormhead:787786964295614495>" + ("<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
     else:
         await ctx.send("Worm too long, died because it couldn't move!")
@@ -133,15 +135,6 @@ async def onMessage(message):
     worm_spellings = ["worm", "owrm", "rwom", "wrom", "orwm", "rowm", "mowr", "omwr", "wmor", "mwor", "owmr", "womr", "wrmo", "rwmo", "mwro", "wmro", "rmwo", "mrwo", "mrow", "rmow", "omrw", "morw", "romw", "ormw"]
     if message.author == client.user:
         return
-    elif worm_spellings.__contains__(message.content.lower().split(" ")[0]):
-        try:
-            if int(message.content.lower().split(" ")[1]) <= 1000:
-                await message.channel.send("<:wormhead:787786964295614495>" + ("<:wormbody:787786942312874006>" * rd.randint(0, int(message.content.lower().split(" ")[1]))) + "<:wormtail:787786975703728208>")
-            else:
-                await message.channel.send("Worm too long, died because it couldn't move!")
-        except:
-            await message.channel.send("<:wormhead:787786964295614495>" + (
-                        "<:wormbody:787786942312874006>" * rd.randint(0, 10)) + "<:wormtail:787786975703728208>")
     for data in eqDat:
         if data[0].split("·").__contains__(message.content.lower()):
             await message.channel.send(rd.choice(data[1].split("·")))
