@@ -7,6 +7,8 @@ from discord.ext.commands import CommandNotFound
 from datetime import datetime
 
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+
 client = Bot("^")
 os.chdir("bot")
 num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -40,6 +42,12 @@ async def ctime(ctx):
     dt = datetime.now(pytz.timezone("UTC"))
     await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
                               "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " UTC")
+
+
+@client.command()
+async def setprefix(ctx, prefix):
+    client.command_prefix = prefix
+    await ctx.send(f"Prefix changed to ``{prefix}``")
 
 
 @client.command()
