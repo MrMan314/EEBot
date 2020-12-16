@@ -132,7 +132,6 @@ async def onMessage(message):
     ctDat = []
     for line in ctLines:
         ctDat.append(line.strip().split("±"))
-    worm_spellings = ["worm", "owrm", "rwom", "wrom", "orwm", "rowm", "mowr", "omwr", "wmor", "mwor", "owmr", "womr", "wrmo", "rwmo", "mwro", "wmro", "rmwo", "mrwo", "mrow", "rmow", "omrw", "morw", "romw", "ormw"]
     if message.author == client.user:
         return
     for data in eqDat:
