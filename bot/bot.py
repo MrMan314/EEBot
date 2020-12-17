@@ -7,7 +7,6 @@ from datetime import datetime
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-
 client = Bot("^")
 os.chdir("bot")
 num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -32,47 +31,62 @@ async def on_command_error(ctx, error):
     await ctx.send(str(error))
 
 
-@client.command()
-async def ctime(ctx, tz):
-    dt = datetime.now(pytz.timezone(tz))
-    await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
-                              "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " " + tz)
+class Information:
+
+    """Informational Commands"""
+
+    @client.command()
+    async def ctime(self, ctx, tz="UTC"):
+        """Tells you the current time of day in a timezone[tz], tz is default UTC"""
+        dt = datetime.now(pytz.timezone(tz))
+        await ctx.send(rd.choice(["It's ", "The current time is: ", "Here's The time: ",
+                                  "BING BONG BING BONG who's your friend who likes to play?  "]) + dt.strftime(
+            "%Y-%m-%d %H:%M:%S.%f") + " " + tz)
 
 
-@client.command()
-async def worm(ctx, length=10):
-    if length < 0:
-        await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE", file=discord.File("blackhole.gif"))
-    elif length <= 64:
-        await ctx.send("<:wormhead:787786964295614495>" + ("<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
-    else:
-        await ctx.send("Worm too long, died because it couldn't move!")
-        await ctx.send("<:deadwormhead:788823709154148384>  <:wormbody:787786942312874006> <:wormbody:787786942312874006><:wormbody:787786942312874006><:wormbody:787786942312874006> <:wormbody:787786942312874006>  <:wormtail:787786975703728208>")
+client.add_cog(Information())
 
 
-# @client.command()
-# async def setprefix(ctx, prefix):
-#     client.command_prefix = prefix
-#     await ctx.send(f"Prefix changed to ``{prefix}``")
+class Fun:
+
+    """Commands for all your FUN needs!"""
+
+    @client.command()
+    async def worm(self, ctx, length=10):
+        """Makes a worm a random length from 0 to length, length is set to 10 if not defined"""
+        if length < 0:
+            await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE",
+                           file=discord.File("blackhole.gif"))
+        elif length <= 64:
+            await ctx.send("<:wormhead:787786964295614495>" + (
+                        "<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
+        else:
+            await ctx.send("Worm too long, died because it couldn't move!")
+            await ctx.send(
+                "<:deadwormhead:788823709154148384>  <:wormbody:787786942312874006> <:wormbody:787786942312874006><:wormbody:787786942312874006><:wormbody:787786942312874006> <:wormbody:787786942312874006>  <:wormtail:787786975703728208>")
+
+    @client.command()
+    async def joke(self, ctx):
+        """A joke-telling command to joke around"""
+        j = open('./joke', 'r')
+        jLines = j.readlines()
+        jDat = []
+        for line in jLines:
+            jDat.append(line.strip().split("±"))
+        joke = rd.choice(jDat)
+        await ctx.send(joke[0])
+        try:
+            await ctx.send(joke[1])
+        except discord.errors.HTTPException:
+            pass
 
 
-@client.command()
-async def joke(ctx):
-    j = open('./joke', 'r')
-    jLines = j.readlines()
-    jDat = []
-    for line in jLines:
-        jDat.append(line.strip().split("±"))
-    joke = rd.choice(jDat)
-    await ctx.send(joke[0])
-    try:
-        await ctx.send(joke[1])
-    except discord.errors.HTTPException:
-        pass
+client.add_cog(Fun())
 
 
 @client.command()
 async def genkey(ctx):
+    """Sends you a random 20-digit hexadecimal key, has a 1 in 2001 chance of winning"""
     await ctx.author.create_dm()
     key = str('Key: ||`' +
               (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
@@ -107,7 +121,8 @@ async def genkey(ctx):
 async def onMessage(message):
     dt = datetime.now(pytz.timezone("UTC"))
     f = open("new.log", "a")
-    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " GMT] : " + str(message.guild) + " #" + str(message.channel) + " - " + str(
+    f.write("[" + dt.strftime("%Y-%m-%d %H:%M:%S.%f") + " UTC] : " + str(message.guild) + " #" + str(
+        message.channel) + " - " + str(
         message.author) + ": " + message.content + "\n")
     f.close()
     print(str(message.guild) + " #" + str(message.channel) + " - " + str(
