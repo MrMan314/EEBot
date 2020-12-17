@@ -2,6 +2,7 @@ import os
 import random as rd
 import discord
 import pytz
+from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
 
@@ -31,7 +32,7 @@ async def on_command_error(ctx, error):
     await ctx.send(str(error))
 
 
-class Information:
+class Information(commands.Cog):
 
     """Informational Commands"""
 
@@ -44,10 +45,10 @@ class Information:
             "%Y-%m-%d %H:%M:%S.%f") + " " + tz)
 
 
-client.add_cog(Information())
+client.add_cog(Information(client))
 
 
-class Fun:
+class Fun(commands.Cog):
 
     """Commands for all your FUN needs!"""
 
@@ -81,7 +82,7 @@ class Fun:
             pass
 
 
-client.add_cog(Fun())
+client.add_cog(Fun(client))
 
 
 @client.command()
