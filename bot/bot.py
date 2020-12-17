@@ -81,41 +81,40 @@ class Fun(commands.Cog):
         except discord.errors.HTTPException:
             pass
 
+    @commands.command()
+    async def genkey(self, ctx):
+        """Sends you a random 20-digit hexadecimal key, has a 1 in 2001 chance of winning"""
+        await ctx.author.create_dm()
+        key = str('Key: ||`' +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
+                  '`||')
+        if rd.randint(-1000, 1000) == 0:
+            f = open("winkeys", "a")
+            f.write(key + '\n')
+        await ctx.author.dm_channel.send(key)
+        await ctx.send("Key has successfully been sent")
+
 
 client.add_cog(Fun(client))
-
-
-@client.command()
-async def genkey(ctx):
-    """Sends you a random 20-digit hexadecimal key, has a 1 in 2001 chance of winning"""
-    await ctx.author.create_dm()
-    key = str('Key: ||`' +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
-              '`||')
-    if rd.randint(-1000, 1000) == 0:
-        f = open("winkeys", "a")
-        f.write(key + '\n')
-    await ctx.author.dm_channel.send(key)
-    await ctx.send("Key has successfully been sent")
 
 
 @client.listen('on_message')
