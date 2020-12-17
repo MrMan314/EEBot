@@ -50,10 +50,10 @@ async def worm(ctx, length=10):
         await ctx.send("<:deadwormhead:788823709154148384>  <:wormbody:787786942312874006> <:wormbody:787786942312874006><:wormbody:787786942312874006><:wormbody:787786942312874006> <:wormbody:787786942312874006>  <:wormtail:787786975703728208>")
 
 
-@client.command()
-async def setprefix(ctx, prefix):
-    client.command_prefix = prefix
-    await ctx.send(f"Prefix changed to ``{prefix}``")
+# @client.command()
+# async def setprefix(ctx, prefix):
+#     client.command_prefix = prefix
+#     await ctx.send(f"Prefix changed to ``{prefix}``")
 
 
 @client.command()
