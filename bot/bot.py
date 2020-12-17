@@ -36,7 +36,7 @@ class Information(commands.Cog):
 
     """Informational Commands"""
 
-    @client.command()
+    @commands.command()
     async def ctime(self, ctx, tz="UTC"):
         """Tells you the current time of day in a timezone[tz], tz is default UTC"""
         dt = datetime.now(pytz.timezone(tz))
@@ -52,7 +52,7 @@ class Fun(commands.Cog):
 
     """Commands for all your FUN needs!"""
 
-    @client.command()
+    @commands.command()
     async def worm(self, ctx, length=10):
         """Makes a worm a random length from 0 to length, length is set to 10 if not defined"""
         if length < 0:
@@ -66,7 +66,7 @@ class Fun(commands.Cog):
             await ctx.send(
                 "<:deadwormhead:788823709154148384>  <:wormbody:787786942312874006> <:wormbody:787786942312874006><:wormbody:787786942312874006><:wormbody:787786942312874006> <:wormbody:787786942312874006>  <:wormtail:787786975703728208>")
 
-    @client.command()
+    @commands.command()
     async def joke(self, ctx):
         """A joke-telling command to joke around"""
         j = open('./joke', 'r')
