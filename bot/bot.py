@@ -4,7 +4,9 @@ import discord
 import pytz
 from discord.ext import commands
 from discord.ext.commands import Bot
+from discord.utils import get
 from datetime import datetime
+import youtube_dl
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -135,6 +137,31 @@ class Audio(commands.Cog):
         """Leaves current audio channel"""
 
         await ctx.voice_client.disconnect()
+
+    @commands.command()
+    async def play(self, ctx, link):
+
+        """Plays audio of given YouTube link"""
+
+        voice = get(client.voice_clients, guild=ctx.guild)
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+        }
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([link])
+        for file in os.listdir("./"):
+            if file.endswith(".mp3"):
+                os.rename(file, 'song.mp3')
+        voice.play(discord.FFmpegPCMAudio("song.mp3"))
+        voice.volume = 100
+        voice.is_playing()
+
+
 
 
 client.add_cog(Audio(client))

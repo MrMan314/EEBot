@@ -5,3 +5,4 @@ python-dotenv
 tzlocal
 pytz
 PyNaCl
+youtube_dl
