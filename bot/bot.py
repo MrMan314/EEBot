@@ -117,6 +117,20 @@ class Fun(commands.Cog):
 client.add_cog(Fun(client))
 
 
+class Audio(commands.Cog):
+    @commands.command()
+    async def join(self, ctx):
+        channel = ctx.author.voice.channel
+        await channel.connect()
+
+    @commands.command()
+    async def leave(self, ctx):
+        await ctx.voice_client.disconnect()
+
+
+client.add_cog(Audio(client))
+
+
 @client.listen('on_message')
 async def onMessage(message):
     dt = datetime.now(pytz.timezone("UTC"))
