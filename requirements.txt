@@ -4,3 +4,4 @@ pynacl
 python-dotenv
 tzlocal
 pytz
+libffi
