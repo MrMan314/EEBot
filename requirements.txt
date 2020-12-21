@@ -1,5 +1,6 @@
 discord.py
 discord.py[voice]
+pynacl
 python-dotenv
 tzlocal
 pytz
