@@ -6,4 +6,3 @@ tzlocal
 pytz
 PyNaCl
 youtube_dl
-ffmpeg
