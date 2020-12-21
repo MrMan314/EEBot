@@ -1,6 +1,6 @@
 discord.py
 discord.py[voice]
-nacl
+pysodium
 python-dotenv
 tzlocal
 pytz
