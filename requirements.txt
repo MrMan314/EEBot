@@ -4,3 +4,4 @@ pysodium
 python-dotenv
 tzlocal
 pytz
+PyNaCl
