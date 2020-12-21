@@ -2,6 +2,7 @@ import os
 import random as rd
 import discord
 import pytz
+import pynacl
 from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
