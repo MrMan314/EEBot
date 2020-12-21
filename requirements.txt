@@ -1,7 +1,6 @@
 discord.py
 discord.py[voice]
-pynacl
+PyNaCl
 python-dotenv
 tzlocal
 pytz
-libffi
