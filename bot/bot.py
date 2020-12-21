@@ -118,13 +118,22 @@ client.add_cog(Fun(client))
 
 
 class Audio(commands.Cog):
+
+    """[EXPERIMENTAL] Audio Functionality for EEBot"""
+
     @commands.command()
     async def join(self, ctx):
+
+        """Join current audio channel"""
+
         channel = ctx.author.voice.channel
         await channel.connect()
 
     @commands.command()
     async def leave(self, ctx):
+
+        """Leaves current audio channel"""
+
         await ctx.voice_client.disconnect()
 
 
