@@ -10,6 +10,7 @@ import youtube_dl
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
+discord.opus.load_opus()
 client = Bot("^")
 os.chdir("bot")
 num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
