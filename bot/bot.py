@@ -2,6 +2,7 @@ import os
 import random as rd
 import discord
 import pytz
+from os import path
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord.utils import get
@@ -34,7 +35,6 @@ async def on_command_error(ctx, error):
 
 
 class Information(commands.Cog):
-
     """Informational Commands"""
 
     @commands.command()
@@ -61,7 +61,7 @@ class Fun(commands.Cog):
                            file=discord.File("blackhole.gif"))
         elif length <= 64:
             await ctx.send("<:wormhead:787786964295614495>" + (
-                        "<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
+                    "<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
         else:
             await ctx.send("Worm too long, died because it couldn't move!")
             await ctx.send(
@@ -84,7 +84,9 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def genkey(self, ctx):
+
         """Sends you a random 20-digit hexadecimal key, has a 1 in 2001 chance of winning"""
+
         await ctx.author.create_dm()
         key = str('Key: ||`' +
                   (rd.choice(num) if bool(rd.getrandbits(1)) else rd.choice(ltr)) +
@@ -114,20 +116,50 @@ class Fun(commands.Cog):
         await ctx.author.dm_channel.send(key)
         await ctx.send("Key has successfully been sent")
 
+    @commands.command()
+    async def rickroll(self, ctx):
+
+        """Rickrolls your friends in while in a discord call"""
+
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
+        voice = get(client.voice_clients, guild=ctx.guild)
+        if path.exists("rickroll.mp3"):
+            voice.play(discord.FFmpegPCMAudio("rickroll.mp3"))
+            voice.volume = 100
+            voice.is_playing()
+        else:
+            ydl_opts = {
+                'format': 'bestaudio/best',
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }],
+            }
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                ydl.download(["https://www.youtube.com/watch?v=dQw4w9WgXcQ"])
+            for file in os.listdir("./"):
+                if file.endswith(".mp3"):
+                    os.rename(file, 'rickroll.mp3')
+            voice.play(discord.FFmpegPCMAudio("rickroll.mp3"))
+            voice.volume = 100
+            voice.is_playing()
+
 
 client.add_cog(Fun(client))
 
 
 class Audio(commands.Cog):
-
     """[EXPERIMENTAL] Audio Functionality for EEBot"""
 
     @commands.command()
     async def join(self, ctx):
-        if not discord.opus.is_loaded():
-            discord.opus.load_opus('libopus.so')
+
         """Join current audio channel"""
 
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
         channel = ctx.author.voice.channel
         await channel.connect()
 
@@ -140,10 +172,11 @@ class Audio(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, link):
-        if not discord.opus.is_loaded():
-            discord.opus.load_opus('libopus.so')
+
         """Plays audio of given YouTube link"""
 
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
         voice = get(client.voice_clients, guild=ctx.guild)
         ydl_opts = {
             'format': 'bestaudio/best',
