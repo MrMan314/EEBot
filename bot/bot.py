@@ -10,7 +10,6 @@ import youtube_dl
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-discord.opus.load_opus("FFMpeg")
 client = Bot("^")
 os.chdir("bot")
 num = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -120,6 +119,10 @@ class Fun(commands.Cog):
 client.add_cog(Fun(client))
 
 
+async def start():
+    discord.opus.load_opus("../vendor/ffmpeg")
+
+
 class Audio(commands.Cog):
 
     """[EXPERIMENTAL] Audio Functionality for EEBot"""
@@ -161,8 +164,6 @@ class Audio(commands.Cog):
         voice.play(discord.FFmpegPCMAudio("song.mp3"))
         voice.volume = 100
         voice.is_playing()
-
-
 
 
 client.add_cog(Audio(client))
