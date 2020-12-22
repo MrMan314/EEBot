@@ -119,17 +119,14 @@ class Fun(commands.Cog):
 client.add_cog(Fun(client))
 
 
-async def start():
-    discord.opus.load_opus("../vendor/ffmpeg")
-
-
 class Audio(commands.Cog):
 
     """[EXPERIMENTAL] Audio Functionality for EEBot"""
 
     @commands.command()
     async def join(self, ctx):
-
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
         """Join current audio channel"""
 
         channel = ctx.author.voice.channel
@@ -144,7 +141,8 @@ class Audio(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, link):
-
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
         """Plays audio of given YouTube link"""
 
         voice = get(client.voice_clients, guild=ctx.guild)
