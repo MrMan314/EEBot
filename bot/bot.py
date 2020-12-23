@@ -160,8 +160,8 @@ class Audio(commands.Cog):
 
         if not discord.opus.is_loaded():
             discord.opus.load_opus('libopus.so')
-        channel = ctx.author.voice.channel
-        await channel.connect()
+        await ctx.author.voice.channel.connect()
+
 
     @commands.command()
     async def leave(self, ctx):
@@ -200,15 +200,8 @@ class Audio(commands.Cog):
 
         """Plays audio of given YouTube link"""
 
-        if not discord.opus.is_loaded():
-            discord.opus.load_opus('libopus.so')
-        voice = get(client.voice_clients, guild=ctx.guild)
-        if voice and voice.is_playing():
-            await ctx.message.add_reaction('⏹')
-            voice.stop(ctx.guild)
-        else:
-            await ctx.send("I'm not playing anything...")
-
+        await ctx.voice_client.disconnect()
+        await ctx.author.voice.channel.connect()
 
 
 client.add_cog(Audio(client))
