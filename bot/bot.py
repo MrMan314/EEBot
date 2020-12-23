@@ -202,9 +202,13 @@ class Audio(commands.Cog):
 
         if not discord.opus.is_loaded():
             discord.opus.load_opus('libopus.so')
-        if not ctx.voice_state.is_playing:
-            ctx.voice_state.voice.stop()
+        voice = get(client.voice_clients, guild=ctx.guild)
+        if voice and voice.is_playing():
             await ctx.message.add_reaction('⏹')
+            voice.stop(ctx.guild)
+        else:
+            await ctx.send("I'm not playing anything...")
+
 
 
 client.add_cog(Audio(client))
