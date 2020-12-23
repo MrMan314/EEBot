@@ -195,6 +195,17 @@ class Audio(commands.Cog):
         voice.volume = 100
         voice.is_playing()
 
+    @commands.command()
+    async def stop(self, ctx):
+
+        """Plays audio of given YouTube link"""
+
+        if not discord.opus.is_loaded():
+            discord.opus.load_opus('libopus.so')
+        if not ctx.voice_state.is_playing:
+            ctx.voice_state.voice.stop()
+            await ctx.message.add_reaction('⏹')
+
 
 client.add_cog(Audio(client))
 
