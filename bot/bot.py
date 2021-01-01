@@ -50,7 +50,6 @@ client.add_cog(Information(client))
 
 
 class Fun(commands.Cog):
-
     """Commands for all your FUN needs!"""
 
     @commands.command()
@@ -58,7 +57,7 @@ class Fun(commands.Cog):
         """Makes a worm a random length from 0 to length, length is set to 10 if not defined"""
         if length < 0:
             await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE",
-                           file=discord.File("blackhole.gif"))
+                           file=discord.File("bot/blackhole.gif"))
         elif length <= 64:
             await ctx.send("<:wormhead:787786964295614495>" + (
                     "<:wormbody:787786942312874006>" * rd.randint(0, length) + "<:wormtail:787786975703728208>"))
@@ -161,7 +160,6 @@ class Audio(commands.Cog):
         if not discord.opus.is_loaded():
             discord.opus.load_opus('libopus.so')
         await ctx.author.voice.channel.connect()
-
 
     @commands.command()
     async def leave(self, ctx):
