@@ -204,6 +204,10 @@ class Audio(commands.Cog):
 
 client.add_cog(Audio(client))
 
+@client.command()
+async def report(self, ctx, user, reason):
+    """Reports person"""
+    await ctx.channel.send("This incident has been reported")
 
 @client.listen('on_message')
 async def onMessage(message):
