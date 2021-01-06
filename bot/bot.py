@@ -31,6 +31,8 @@ async def on_member_join(member):
 
 @client.event
 async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
     await ctx.send(str(error))
 
 
