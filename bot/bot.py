@@ -222,7 +222,7 @@ async def onMessage(message):
         message.author) + ": " + message.content + "\n")
     f.close()
     print(str(message.guild) + " #" + str(message.channel) + " - " + str(
-        message.author) + ": " + message.content + "Message ID: " + message.id + ", Channel ID: " + message.channel.id)
+        message.author) + ": " + message.content + "Message ID: " + str(message.id) + ", Channel ID: " + str(message.channel.id))
     eq = open('bot/eq', 'r')
     eqLines = eq.readlines()
     eqDat = []
