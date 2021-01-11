@@ -143,7 +143,7 @@ class Fun(commands.Cog):
             for file in os.listdir("./"):
                 if file.endswith(".mp3"):
                     os.rename(file, 'rickroll.mp3')
-            await rep_message.guild.fetch_member(776538622958501888).edit(mute=False)
+#             await rep_message.guild.fetch_member(776538622958501888).edit(mute=False)
             voice.play(discord.FFmpegPCMAudio("rickroll.mp3"))
             voice.volume = 100
             voice.is_playing()
@@ -192,7 +192,7 @@ class Audio(commands.Cog):
         for file in os.listdir("./"):
             if file.endswith(".mp3"):
                 os.rename(file, 'song.mp3')
-        await rep_message.guild.fetch_member(776538622958501888).edit(mute=False)
+#         await rep_message.guild.fetch_member(776538622958501888).edit(mute=False)
         voice.play(discord.FFmpegPCMAudio("song.mp3"))
         voice.volume = 100
         voice.is_playing()
