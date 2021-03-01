@@ -55,7 +55,7 @@ class Fun(commands.Cog):
     """Commands for all your FUN needs!"""
 
     @commands.command()
-    async def worm(self, ctx, length=rd.randInt(0, 64)):
+    async def worm(self, ctx, length=rd.randint(0, 64)):
         """Makes a worm a given length, length becomes a random number between 0 and 64 inclusive if not defined"""
         if length < 0:
             await ctx.send("Worm cannot be a negative length, YOU DESTROYED THE UNIVERSE WITH A BLACK HOLE",
